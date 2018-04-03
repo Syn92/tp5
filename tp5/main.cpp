@@ -11,7 +11,7 @@
 #include "GestionnaireUsagers.h"
 #include <vector>
 #include "Foncteur.h"
-
+// salut
 using namespace std;
 
 int main()
