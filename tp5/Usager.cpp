@@ -22,7 +22,7 @@ string Usager::obtenirPrenom() const
 
 int Usager::obtenirReference() const
 {
-    return reference_;
+    return identifiant_;
 }
 
 string Usager::obtenirCodePostal() const
@@ -53,7 +53,7 @@ void Usager::modifierPrenom(const string &prenom)
 
 void Usager::modifierReference(int identifiant)
 {
-	reference_ = reference;
+	identifiant_ = identifiant;
 }
 
 void Usager::modifierCodePostal(const string &codePostal)
