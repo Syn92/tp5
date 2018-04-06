@@ -8,6 +8,23 @@
 
 #include "GestionnaireGenerique.h"
 
+class GestionnaireUsager : GestionnaireGenerique<Usager,set<Usager*>,ajouterUsager,FoncteurSupprimerUsager>
+{
+public:
+	MyClass();
+	~MyClass();
+
+private:
+
+};
+
+MyClass::MyClass()
+{
+}
+
+MyClass::~MyClass()
+{
+}
 // TODO : Créer la classe GestionnaireUsager
 
 // TODO : La classe ressemble beaucoup à la classe Gestionnaire

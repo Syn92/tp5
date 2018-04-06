@@ -11,19 +11,35 @@
 #include <vector>
 #include <iostream>
 #include <set>
+#include "Foncteur.h"
+#include "Usager.h"
+#include "Produit.h"
+#include <algorithm>
 
 using namespace std;
 #pragma once
-template<typename T,typename C>
+template<typename T,typename C,class A,class S>
 class GestionnaireGenerique {
 public:
-	C<T> obtenirConteneur() const {
+	C obtenirConteneur() const {
 		return conteneur_;
-	};
+	}
+	void ajouter(const T* t) {
+		A ajouter(conteneur_);
+		ajouter(t);
+	}
+	void supprimer(const T* t) {
+		S supprimer(conteneur_);
+		supprimer(t);
+		
+	}
+	template<typename PREDICATE>
+	void pourChaqueElement() {
+		for_each(conteneur_.begin(), conteneur_.end(), PREDICATE);
 
-
+	}
 protected:
-	C<T>conteneur_;
+	C &conteneur_;
 
 private:
 };

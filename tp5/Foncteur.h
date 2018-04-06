@@ -10,6 +10,8 @@
 #include <vector>
 #include <map>
 #include <algorithm>
+#include "Produit.h"
+#include "Usager.h"
 
 // TODO : Créer le FoncteurEgal
 template<typename T>
@@ -17,7 +19,7 @@ class FoncteurEgal
 {
 public:
 	FoncteurEgal(T* t) { t_ = t; }
-	bool operator()(pair<int, T*>pair) { return pair.second() == t_; } //compare le parametre de type T de la paire, avec l'attribut
+	bool operator()(pair<int, T*>pair) { return pair.second == t_; } //compare le parametre de type T de la paire, avec l'attribut
 
 private:
 	T* t_;
@@ -35,7 +37,7 @@ class FoncteurGenerateurId
 {
 public:
 	FoncteurGenerateurId() :id_(0) {}
-	void operator()() { id_++; } // incremente l'ID
+	int operator()() { return id_++; } // incremente l'ID
 
 private:
 	int id_;
@@ -95,11 +97,11 @@ Méthodes :
 class AjouterProduit
 {
 public:
-	AjouterProduit(multimap<int, Produit*>&multimap) { multimap_ = multimap; }
-	multimap<int, Produit*> operator()(pair<int, Produit*>pair) { multimap_.insert(pair); }
+	AjouterProduit(multimap<int, Produit*>&multimap):multimap_(multimap) { }
+	multimap<int, Produit*> operator()(pair<int, Produit*>pair) { multimap_.insert(pair); return multimap_; }
 
 private:
-	multimap<int, Produit*> multimap_;
+	multimap<int, Produit*> &multimap_;
 };
 
 
@@ -115,11 +117,11 @@ Méthodes :
 class SupprimerProduit
 {
 public:
-	SupprimerProduit(multimap<int, Produit*>&multimap) { multimap_ = multimap; } // constructeur par parametre
+	SupprimerProduit(multimap<int, Produit*>&multimap):multimap_(multimap) {  } // constructeur par parametre, utilisation demandé du foncteurÉtal
 	multimap<int, Produit*> operator()(pair<int,Produit*>pair) { // surcharge operateur ()
-		Produit* temp = pair.second; // création d'un produit* pour faciliter la lecture
-		FoncteurEgal<Produit> egal(temp);// construction du foncteurEgal avec le produit de la pair
-		auto it = find_if(multimap_.begin(), multimap_.end(), egal(pair));// find_if avec le prédicat prenant en parametre la pair.
+		//Produit* temp = pair.second; // création d'un produit* pour faciliter la lecture
+		FoncteurEgal<Produit> egal(pair.second);// construction du foncteurEgal avec le produit de la pair
+		auto it = find_if(multimap_.begin(), multimap_.end(), egal);// find_if avec le prédicat prenant en parametre la pair.
 		if (it!=multimap_.end())
 		{
 			multimap_.erase(it);
@@ -128,7 +130,7 @@ public:
 	}
 
 private:
-	multimap<int, Produit*>multimap_;// &multimap -> par référence mais bug (pas d'initalisateur) ??
+	multimap<int, Produit*>&multimap_;// &multimap
 };
 
 
@@ -142,12 +144,28 @@ Méthodes :
 class ajouterUsager
 {
 public:
-	
+	ajouterUsager(set<Usager*>&set):set_(set) { }
 	set<Usager*> operator()(Usager* &usager) { 
 	set_.insert(usager); // ajoute l'usager* dans le set, et le retourne
 	return set_;
 	}
 	
+
+private:
+	set<Usager*>&set_;
+};
+
+class FoncteurSupprimerUsager
+{
+public:
+	FoncteurSupprimerUsager(set<Usager*>&set):set_(set){}
+	set<Usager*> operator()(Usager* usager) {
+		auto it = set_.find(usager); // retourne un itérateur sur l'élément correspondant sinn last.
+		if (it != set_.end())
+		{
+			set_.erase(it);
+		}
+	}
 
 private:
 	set<Usager*>&set_;

@@ -3,13 +3,25 @@
 * Date: 9 mars 2018
 * Auteur: Ryan Hardie
 *******************************************/
-
+#ifndef GESTIONNAIREPRODUITS_H
+#define GESTIONNAIREPRODUITS_H
 #pragma once
 
 #include "GestionnaireGenerique.h"
 
-// TODO : Créer la classe GestionnaireProduits
+using namespace std;
 
+class GestionnaireProduits : public GestionnaireGenerique<Usager,set<Usager*>,ajouterUsager,FoncteurSupprimerUsager>
+{
+public:
+	GestionnaireProduits();
+	void reinitialiserClient();
+
+private:
+
+};
+
+// TODO : Créer la classe GestionnaireProduits
 // TODO : Méthodes :
 /*
 - reinitialiserClient();
@@ -21,3 +33,4 @@
 - obtenirProduitsEntre();
 - obtenirProduitSuivant();
 */
+#endif
