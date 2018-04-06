@@ -69,6 +69,7 @@ void Client::enleverProduit(Produit *produit)
 
 void Client::ajouterProduit(Produit *produit)
 {
+	AjouterProduit ajouterProduit(panier_->obtenirConteneur())
 	// TODO : À modifier
     for (unsigned int i = 0; i < panier_.size(); i++)
         if (panier_[i] == produit)
