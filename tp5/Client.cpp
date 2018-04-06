@@ -22,28 +22,21 @@ unsigned int Client::obtenirCodeClient() const
     return codeClient_;
 }
 
-vector<Produit *> Client::obtenirPanier() const
+GestionnaireProduits* Client::obtenirPanier() const
 {
-	// TODO : À modifier
     return panier_;
 }
 
 double Client::obtenirTotalAPayer() const
 {
-	// TODO : À modifier
-    double montant = 0;
-    for (unsigned int i = 0; i < panier_.size(); i++)
-        montant += panier_[i]->obtenirPrix();
-    return montant;
+    return panier_->obtenirTotalAPayer();
 }
 
 void Client::afficherPanier() const
 {
-	// TODO : À modifier
     cout << "PANIER (de " << obtenirNom() << ")"
          << "\n";
-    for (unsigned int i = 0; i < panier_.size(); i++)
-        panier_[i]->afficher();
+        panier_->afficher();
     cout << endl;
 }
 

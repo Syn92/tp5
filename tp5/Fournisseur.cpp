@@ -13,9 +13,8 @@ Fournisseur::Fournisseur(const string &nom, const string &prenom, int identifian
 	// TODO : À modifier
 }
 
-vector<Produit *> Fournisseur::obtenirCatalogue() const
+GestionnaireProduits* Fournisseur::obtenirCatalogue() const
 {
-	// TODO : À modifier
     return catalogue_;
 }
 
@@ -24,8 +23,7 @@ void Fournisseur::afficherCatalogue() const
 	// TODO : À modifier
     cout << "CATALOGUE (de " << obtenirNom() << ")"
          << "\n";
-    for (unsigned int i = 0; i < catalogue_.size(); i++)
-        catalogue_[i]->afficher();
+        catalogue_->afficher();
     cout << endl;
 }
 
@@ -38,10 +36,13 @@ void Fournisseur::afficher() const
 
 void Fournisseur::reinitialiser()
 {
-	// TODO : À modifier
+
+	catalogue_->reinitialiserFournisseur();
+	catalogue_->reinitialiserClient();
+	/*/ TODO : À modifier
     for (unsigned int i = 0; i < catalogue_.size(); i++)
         catalogue_[i]->modifierFournisseur(nullptr);
-    catalogue_.clear();
+    catalogue_.clear();*/
 }
 
 void Fournisseur::ajouterProduit(Produit *produit)
