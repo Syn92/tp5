@@ -5,3 +5,31 @@
 *******************************************/
 
 #include "GestionnaireUsagers.h"
+
+double GestionnaireUsager::obtenirChiffreAffaires() const {
+	double chiffreAffaire = 0;
+	for (auto it = conteneur_.begin();it!=conteneur_.end(); it++)
+	{
+		chiffreAffaire += (*it)->obtenirTotalAPayer();
+	}
+	return chiffreAffaire;
+}
+void GestionnaireUsager::encherir(Client *client, ProduitAuxEncheres *produit, double montant) const {
+	if (montant>produit->obtenirPrix())
+	{
+		produit->mettreAJourEnchere(client, montant);
+	}
+}
+void GestionnaireUsager::reinitialiser() {
+	for (auto it = conteneur_.begin(); it != conteneur_.end(); it++)
+		(*it)->reinitialiser();
+	
+}
+
+void GestionnaireUsager::afficherProfils() const {
+	cout << "PROFILS :" << endl;
+	for (auto it = conteneur_.begin(); it != conteneur_.end(); it++)
+	{
+		(*it)->afficher();
+	}
+}

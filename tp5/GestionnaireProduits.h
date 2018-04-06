@@ -3,19 +3,29 @@
 * Date: 9 mars 2018
 * Auteur: Ryan Hardie
 *******************************************/
+
 #ifndef GESTIONNAIREPRODUITS_H
 #define GESTIONNAIREPRODUITS_H
+
 #pragma once
 
 #include "GestionnaireGenerique.h"
+#include <functional>
 
 using namespace std;
 
-class GestionnaireProduits : public GestionnaireGenerique<Usager,set<Usager*>,ajouterUsager,FoncteurSupprimerUsager>
+class GestionnaireProduits : public GestionnaireGenerique<Produit,multimap<int,Produit*>,AjouterProduit,SupprimerProduit>
 {
 public:
-	GestionnaireProduits();
+
 	void reinitialiserClient();
+	void reinitialiserFournisseur();
+	void afficher() const;
+	double obtenirTotalAPayer();
+	double obtenirTotalApayerPremium();
+	Produit* trouverProduitPlusCher() const;
+	vector<pair<int, Produit*>> obtenirProduitsEntre(double borneInf,double borneSup) const;
+	Produit* obtenirProduitSuivant(Produit* product) const;
 
 private:
 
@@ -33,4 +43,4 @@ private:
 - obtenirProduitsEntre();
 - obtenirProduitSuivant();
 */
-#endif
+#endif // !GESTIONNAIREPRODUITS_H

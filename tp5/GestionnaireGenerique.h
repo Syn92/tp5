@@ -14,6 +14,8 @@
 #include "Foncteur.h"
 #include "Usager.h"
 #include "Produit.h"
+#include "Client.h"
+#include "ProduitAuxEncheres.h"
 #include <algorithm>
 
 using namespace std;
@@ -33,7 +35,7 @@ public:
 		supprimer(t);
 		
 	}
-	template<typename PREDICATE>
+	template<typename Predicate>
 	void pourChaqueElement() {
 		for_each(conteneur_.begin(), conteneur_.end(), PREDICATE);
 
