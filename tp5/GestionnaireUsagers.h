@@ -10,16 +10,20 @@
 
 #pragma once
 #include "GestionnaireGenerique.h"
+#include "ProduitAuxEncheres.h"
+#include <set>
 
 
-class GestionnaireUsager : GestionnaireGenerique<Usager,set<Usager*>,ajouterUsager,FoncteurSupprimerUsager>
+//not able to detect GestionnaireGenerique 
+class GestionnaireUsager : GestionnaireGenerique <Usager, set<Usager*> , ajouterUsager , FoncteurSupprimerUsager>
 {
 public:
+	GestionnaireUsager(){};
 	double obtenirChiffreAffaires() const;
 	void encherir(Client *client, ProduitAuxEncheres *produit, double montant) const;
 	void reinitialiser();
 	void afficherProfils() const;
-private:
+
 	
 };
 

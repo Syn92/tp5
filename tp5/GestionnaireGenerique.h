@@ -7,32 +7,25 @@
 #define GESTIONNAIREGENERIQUE_H
 
 
-#include <string>
-#include <vector>
-#include <iostream>
-#include <set>
-#include "Foncteur.h"
-#include "Usager.h"
-#include "Produit.h"
-#include "Client.h"
-#include "ProduitAuxEncheres.h"
+#pragma once
 #include <algorithm>
 
 using namespace std;
-#pragma once
+
 template<typename T,typename C,class A,class S>
 class GestionnaireGenerique {
 public:
+
 	C obtenirConteneur() const {
 		return conteneur_;
 	}
 	void ajouter(const T* t) {
 		A ajouter(conteneur_);
-		ajouter(t);
+		//ajouter(t);
 	}
 	void supprimer(const T* t) {
 		S supprimer(conteneur_);
-		supprimer(t);
+		//supprimer(t);
 		
 	}
 	template<typename Predicate>
@@ -43,7 +36,6 @@ public:
 protected:
 	C &conteneur_;
 
-private:
 };
 
 // TODO : Créer la classe GestionnaireGenerique

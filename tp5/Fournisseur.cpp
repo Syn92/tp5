@@ -31,7 +31,7 @@ void Fournisseur::afficher() const
 {
 	// TODO : À modifier
     Usager::afficher();
-    cout << "\t\tcatalogue:\t" << catalogue_.size() << " elements" << endl;
+    cout << "\t\tcatalogue:\t" << catalogue_->obtenirConteneur().size() << " elements" << endl;
 }
 
 void Fournisseur::reinitialiser()
@@ -48,26 +48,28 @@ void Fournisseur::reinitialiser()
 void Fournisseur::ajouterProduit(Produit *produit)
 {
 	// TODO : À modifier
-    for (unsigned int i = 0; i < catalogue_.size(); i++)
-        if (catalogue_[i] == produit)
-            return;
-    Fournisseur *fournisseur = produit->obtenirFournisseur();
-    if (fournisseur != nullptr && fournisseur != this)
-        fournisseur->enleverProduit(produit);
-    catalogue_.push_back(produit);
+	//for (unsigned int i = 0; i < catalogue_->obtenirConteneur().size(); i++)
+	//  if (catalogue_[i] == produit)
+	//      return;
+	Fournisseur *fournisseur = produit->obtenirFournisseur();
+	if (fournisseur != nullptr && fournisseur != this)
+	 fournisseur->enleverProduit(produit);
+	catalogue_->ajouter(produit);
 }
 
 void Fournisseur::enleverProduit(Produit *produit)
 {
 	// TODO : À modifier
-    produit->modifierFournisseur(nullptr);
-    for (unsigned int i = 0; i < catalogue_.size(); i++)
-    {
-        if (catalogue_[i] == produit)
-        {
-            catalogue_[i] = catalogue_[catalogue_.size() - 1];
-            catalogue_.pop_back();
-            return;
-        }
-    }
+	//produit->modifierFournisseur(nullptr);
+	//for (unsigned int i = 0; i < catalogue_.size(); i++)
+	//{
+	////  if (catalogue_[i] == produit)
+	//{
+	//      catalogue_[i] = catalogue_[catalogue_.size() - 1];
+	//      catalogue_.pop_back();
+	//      return;
+	//  }
+	//}
+
+	catalogue_->supprimer(produit);
 }

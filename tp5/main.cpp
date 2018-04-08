@@ -16,6 +16,7 @@ using namespace std;
 int main()
 {
 	FoncteurGenerateurId genIdUsager, genIdProduit;
+	//GestionnaireUsagers is not defined
     GestionnaireUsagers poly;
     Client ratus;
 	ratus.modifierReference(genIdUsager());

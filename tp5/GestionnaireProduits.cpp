@@ -8,6 +8,12 @@
 
 
 #include "GestionnaireProduits.h"
+#include "ProduitAuxEncheres.h"
+
+
+
+
+
 
 void GestionnaireProduits::reinitialiserClient() {
 	conteneur_.clear();
@@ -29,6 +35,8 @@ double GestionnaireProduits::obtenirTotalAPayer() {
 	double totalAPayer = 0;
 	for (auto it = conteneur_.begin(); it != conteneur_.end(); it++)
 		totalAPayer += (*it).second->obtenirPrix();
+
+	return totalAPayer;
 }
 double GestionnaireProduits::obtenirTotalApayerPremium() {
 	double totalAPayer = 0;
@@ -36,6 +44,8 @@ double GestionnaireProduits::obtenirTotalApayerPremium() {
 		double prix = (*it).second->obtenirPrix();
 		totalAPayer += prix < 5 ? 0 : prix - 5;
 	}		
+
+	return totalAPayer;
 }
 
 Produit* GestionnaireProduits::trouverProduitPlusCher() const {
@@ -46,12 +56,16 @@ Produit* GestionnaireProduits::trouverProduitPlusCher() const {
 
 vector<pair<int,Produit*>> GestionnaireProduits::obtenirProduitsEntre(double borneInf,double borneSup) const {
 	vector<pair<int, Produit*>> prixBorneVec;
-	FoncteurIntervalle intervalle(borneInf, borneSup);
-	copy_if(conteneur_.begin(), conteneur_.end(), back_inserter(prixBorneVec), intervalle);
+	// functors are causing errors
+	//FoncteurIntervalle intervalle(borneInf, borneSup);
+	//copy_if(conteneur_.begin(), conteneur_.end(), back_inserter(prixBorneVec), intervalle);
 		return prixBorneVec;
 }
 
 Produit* GestionnaireProduits::obtenirProduitSuivant(Produit* product) const {
-	namespace p = std::placeholders; 
-	find_if(conteneur_.begin, conteneur_.end(), bind(isgreater<pair<int, Produit*>>( p::_1, p::_2));
+	// functors are causing errors
+
+	//namespace p = std::placeholders; 
+	//find_if(conteneur_.begin, conteneur_.end(), bind(isgreater<pair<int, Produit*>>( p::_1, p::_2)));
+	return nullptr;
 }

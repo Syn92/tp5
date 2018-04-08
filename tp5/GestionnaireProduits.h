@@ -8,16 +8,22 @@
 #define GESTIONNAIREPRODUITS_H
 
 #pragma once
-
+#include <vector>
 #include "GestionnaireGenerique.h"
+#include "Produit.h"
+#include "Foncteur.h"
 #include <functional>
+#include <map>
+
 
 using namespace std;
 
-class GestionnaireProduits : public GestionnaireGenerique<Produit,multimap<int,Produit*>,AjouterProduit,SupprimerProduit>
+class GestionnaireProduits : public GestionnaireGenerique <Produit, multimap<int,Produit*> , AjouterProduit, SupprimerProduit>
 {
 public:
 
+	GestionnaireProduits();
+	
 	void reinitialiserClient();
 	void reinitialiserFournisseur();
 	void afficher() const;
@@ -27,7 +33,7 @@ public:
 	vector<pair<int, Produit*>> obtenirProduitsEntre(double borneInf,double borneSup) const;
 	Produit* obtenirProduitSuivant(Produit* product) const;
 
-private:
+
 
 };
 
