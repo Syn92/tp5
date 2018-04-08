@@ -54,11 +54,10 @@ Produit* GestionnaireProduits::trouverProduitPlusCher() const {
 	return (*it).second;
 }
 
-vector<pair<int,Produit*>> GestionnaireProduits::obtenirProduitsEntre(double borneInf,double borneSup) const {
+vector<pair<int,Produit*>> GestionnaireProduits::obtenirProduitsEntre(double borneInf,double borneSup) {
 	vector<pair<int, Produit*>> prixBorneVec;
-	// functors are causing errors
-	//FoncteurIntervalle intervalle(borneInf, borneSup);
-	//copy_if(conteneur_.begin(), conteneur_.end(), back_inserter(prixBorneVec), intervalle);
+	FoncteurIntervalle intervalle(borneInf, borneSup);
+	copy_if(conteneur_.begin(), conteneur_.end(), back_inserter(prixBorneVec), intervalle);
 		return prixBorneVec;
 }
 

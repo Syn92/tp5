@@ -12,16 +12,15 @@
 #include "GestionnaireGenerique.h"
 #include "ProduitAuxEncheres.h"
 #include <set>
+using namespace std;
 
 
-//not able to detect GestionnaireGenerique 
-class GestionnaireUsager : GestionnaireGenerique <Usager, set<Usager*> , ajouterUsager , FoncteurSupprimerUsager>
+class GestionnaireUsagers : public GestionnaireGenerique <Usager, set<Usager*> , ajouterUsager , FoncteurSupprimerUsager>
 {
 public:
-	GestionnaireUsager(){};
 	double obtenirChiffreAffaires() const;
 	void encherir(Client *client, ProduitAuxEncheres *produit, double montant) const;
-	void reinitialiser();
+	virtual void reinitialiser();
 	void afficherProfils() const;
 
 	

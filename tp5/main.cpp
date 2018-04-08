@@ -17,7 +17,7 @@ int main()
 {
 	FoncteurGenerateurId genIdUsager, genIdProduit;
 	//GestionnaireUsagers is not defined
-    GestionnaireUsagers poly;
+	GestionnaireUsagers poly;
     Client ratus;
 	ratus.modifierReference(genIdUsager());
     Client gaspard("Donada--Vidal", "Gaspard", genIdUsager(), "P4R 1I5", 1997);

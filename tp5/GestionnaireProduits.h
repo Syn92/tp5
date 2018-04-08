@@ -22,7 +22,6 @@ class GestionnaireProduits : public GestionnaireGenerique <Produit, multimap<int
 {
 public:
 
-	GestionnaireProduits();
 	
 	void reinitialiserClient();
 	void reinitialiserFournisseur();
@@ -30,7 +29,7 @@ public:
 	double obtenirTotalAPayer();
 	double obtenirTotalApayerPremium();
 	Produit* trouverProduitPlusCher() const;
-	vector<pair<int, Produit*>> obtenirProduitsEntre(double borneInf,double borneSup) const;
+	vector<pair<int, Produit*>> obtenirProduitsEntre(double borneInf,double borneSup);
 	Produit* obtenirProduitSuivant(Produit* product) const;
 
 

@@ -19,18 +19,18 @@ public:
 	C obtenirConteneur() const {
 		return conteneur_;
 	}
-	void ajouter(const T* t) {
+	void ajouter(T* t) {
 		A ajouter(conteneur_);
-		//ajouter(t);
+		ajouter(t);
 	}
-	void supprimer(const T* t) {
+	void supprimer( T* t) {
 		S supprimer(conteneur_);
-		//supprimer(t);
+		supprimer(t);
 		
 	}
 	template<typename Predicate>
 	void pourChaqueElement() {
-		for_each(conteneur_.begin(), conteneur_.end(), PREDICATE);
+		for_each(conteneur_.begin(), conteneur_.end(), Predicate);
 
 	}
 protected:

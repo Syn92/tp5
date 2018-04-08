@@ -98,7 +98,9 @@ class AjouterProduit
 {
 public:
 	AjouterProduit(multimap<int, Produit*>&multimap):multimap_(multimap) { }
-	multimap<int, Produit*> operator()(pair<int, Produit*>pair) { multimap_.insert(pair); return multimap_; }
+	multimap<int, Produit*> operator()(Produit* p) { 
+		pair<int, Produit*> pair = make_pair(p->obtenirReference(), p);
+		multimap_.insert(pair); return multimap_;}
 
 private:
 	multimap<int, Produit*> &multimap_;
@@ -118,9 +120,9 @@ class SupprimerProduit
 {
 public:
 	SupprimerProduit(multimap<int, Produit*>&multimap):multimap_(multimap) {  } // constructeur par parametre, utilisation demandé du foncteurÉtal
-	multimap<int, Produit*> operator()(pair<int,Produit*>pair) { // surcharge operateur ()
+	multimap<int, Produit*> operator()(Produit* p) { // surcharge operateur ()
 		//Produit* temp = pair.second; // création d'un produit* pour faciliter la lecture
-		FoncteurEgal<Produit> egal(pair.second);// construction du foncteurEgal avec le produit de la pair
+		FoncteurEgal<Produit> egal(p);// construction du foncteurEgal avec le produit de la pair
 		auto it = find_if(multimap_.begin(), multimap_.end(), egal);// find_if avec le prédicat prenant en parametre la pair.
 		if (it!=multimap_.end())
 		{
