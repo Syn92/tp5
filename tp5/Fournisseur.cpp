@@ -15,6 +15,7 @@ Fournisseur::Fournisseur(const string &nom, const string &prenom, int identifian
 
 Fournisseur::~Fournisseur() 
 {
+	catalogue_->reinitialiserFournisseur();
 	delete catalogue_;
 }
 
@@ -41,13 +42,13 @@ void Fournisseur::reinitialiser()
 {
 
 	catalogue_->reinitialiserFournisseur();
-	catalogue_->reinitialiserClient();
+//catalogue_->reinitialiserClient();
 }
 
 void Fournisseur::ajouterProduit(Produit *produit)
 {
 	Fournisseur *fournisseur = produit->obtenirFournisseur();
-	if (fournisseur != nullptr && fournisseur != this)
+	if (fournisseur != nullptr)
 	 fournisseur->enleverProduit(produit);
 	catalogue_->ajouter(produit);
 }

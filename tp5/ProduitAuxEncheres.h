@@ -1,3 +1,9 @@
+/*****************************************************
+* Titre: Travail pratique #5 - ProduitAuxEncheres.h
+* Date: 9 avril 2018
+* Auteur: Ismael Gbian et Olivier Clermont Dejean
+******************************************************/
+
 #ifndef PRODUIT_AUX_ENCHERES_H
 #define PRODUIT_AUX_ENCHERES_H
 
@@ -8,6 +14,8 @@
 
 using namespace std;
 
+class Client;
+
 class ProduitAuxEncheres : public Produit
 {
   public:
@@ -16,7 +24,7 @@ class ProduitAuxEncheres : public Produit
                        double prix = 0.0);
 
     virtual double obtenirPrixInitial() const;
-    Client *obtenirEncherisseur() const;
+    Client* obtenirEncherisseur() const;
     virtual void afficher() const;
 
     void modifierPrixInitial(double prixInitial);
@@ -25,7 +33,7 @@ class ProduitAuxEncheres : public Produit
 
   private:
     double prixInitial_;
-    Client *encherisseur_;
+    Client* encherisseur_;
 };
 
 #endif

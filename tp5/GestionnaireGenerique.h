@@ -7,12 +7,12 @@
 #define GESTIONNAIREGENERIQUE_H
 
 
-#pragma once
 #include <algorithm>
+#include "Foncteur.h"
 
 using namespace std;
 
-template<typename T,typename C,class A,class S>
+template<typename C,typename T,typename A,typename S>
 class GestionnaireGenerique {
 public:
 
@@ -29,12 +29,12 @@ public:
 		
 	}
 	template<typename Predicate>
-	void pourChaqueElement() {
-		for_each(conteneur_.begin(), conteneur_.end(), Predicate);
+	void pourChaqueElement(Predicate x) {
+		for_each(conteneur_.begin(), conteneur_.end(), x);
 
 	}
 protected:
-	C &conteneur_;
+	C conteneur_;
 
 };
 

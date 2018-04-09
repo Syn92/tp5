@@ -1,10 +1,12 @@
-/********************************************
+Ôªø/********************************************
 * Titre: Travail pratique #5 - Foncteur.h
 * Date: 9 mars 2018
 * Auteur: Ryan Hardie
 *******************************************/
 
-#pragma once
+#ifndef FONCTEUR_H
+#define FONCTEUR_H
+
 #include <iostream>
 #include <set>
 #include <vector>
@@ -13,7 +15,8 @@
 #include "Produit.h"
 #include "Usager.h"
 
-// TODO : CrÈer le FoncteurEgal
+using namespace std;
+// TODO : Cr√©er le FoncteurEgal
 template<typename T>
 class FoncteurEgal
 {
@@ -26,12 +29,12 @@ private:
 };
 
 
-// TODO : CrÈer le FoncteurGenerateurId
+// TODO : Cr√©er le FoncteurGenerateurId
 /*
 Attributs :
 - id_;
-MÈthodes :
-- operator(); IncrÈmenter id_ ‡ chaque appel
+M√©thodes :
+- operator(); Incr√©menter id_ √† chaque appel
 */
 class FoncteurGenerateurId
 {
@@ -44,12 +47,12 @@ private:
 };
 
 
-// TODO : CrÈer le FoncteurDiminuerPourcent
+// TODO : Cr√©er le FoncteurDiminuerPourcent
 /*
 Attributs :
 - pourcentage_;
-MÈthodes :
-- operator(); Calule le nouveau prix du Produit de la pair passÈ en paramËtre et le modifie
+M√©thodes :
+- operator(); Calule le nouveau prix du Produit de la pair pass√© en param√®tre et le modifie
 */
 class FoncteurDiminuerPourcent
 {
@@ -58,28 +61,32 @@ public:
 		pourcentage_ = pourcentage;
 	}
 	void operator()(pair<int, Produit*>& x) {
-		double prix = x.second->Produit::obtenirPrix();
-		double prixReduit = prix - pourcentage_*0.01*prix;
-		x.second->Produit::modifierPrix(prixReduit);
+		if (x.second->Produit::obtenirPrix() > 0)
+		{
+			double prix = x.second->Produit::obtenirPrix();
+			double prixReduit = prix - pourcentage_*0.01*prix;
+			x.second->modifierPrix(prixReduit);
+		}
+
 	}
 
 private:
 	int pourcentage_;
 };
 
-// TODO : CrÈer le FoncteurIntervalle
+// TODO : Cr√©er le FoncteurIntervalle
 /*
 Attributs :
 - borneInf_;
 - borneSup_;
-MÈthodes :
-- operator(); VÈrifie que le Produit associÈ ‡ la pair passÈ en paramËtre est compris entre les bornes borneInf_ et borneSup_ (retourne un boolÈen)
+M√©thodes :
+- operator(); V√©rifie que le Produit associ√© √† la pair pass√© en param√®tre est compris entre les bornes borneInf_ et borneSup_ (retourne un bool√©en)
 */
 class FoncteurIntervalle
 {
 public:
 	FoncteurIntervalle(double borneinf, double bornesup) { borneInf_ = borneinf; borneSup_ = bornesup; }
-	bool operator()(pair<int, Produit* >& x) { return (x.second->obtenirPrix() <= borneSup_ && x.second->obtenirPrix() >= borneInf_); }//prix <=borne sup et >= borneinf
+	bool operator()(const pair<int, Produit* >& x) { return (x.second->obtenirPrix() <= borneSup_ && x.second->obtenirPrix() >= borneInf_); }//prix <=borne sup et >= borneinf
 
 private:
 	double borneInf_;
@@ -87,44 +94,45 @@ private:
 };
 
 
-// TODO : CrÈer le Foncteur AjouterProduit
+// TODO : Cr√©er le Foncteur AjouterProduit
 /*
 Attributs :
 - &multimap_;
-MÈthodes :
-- operator(); Ajoute dans la multimap la pair passÈ par paramËtre et retourne la multimap_;
+M√©thodes :
+- operator(); Ajoute dans la multimap la pair pass√© par param√®tre et retourne la multimap_;
 */
 class AjouterProduit
 {
 public:
-	AjouterProduit(multimap<int, Produit*>&multimap):multimap_(multimap) { }
-	multimap<int, Produit*> operator()(Produit* p) { 
+	AjouterProduit(multimap<int, Produit*>&multimap) :multimap_(multimap) { }
+	multimap<int, Produit*> operator()(Produit* p) {
 		pair<int, Produit*> pair = make_pair(p->obtenirReference(), p);
-		multimap_.insert(pair); return multimap_;}
+		multimap_.insert(pair); return multimap_;
+	}
 
 private:
 	multimap<int, Produit*> &multimap_;
 };
 
 
-// TODO : CrÈer le Foncteur SupprimerProduit
+// TODO : Cr√©er le Foncteur SupprimerProduit
 /*
 Attributs :
 - &multimap_;
-MÈthodes :
+M√©thodes :
 - operator(); Utilise la fonction find_if avec le FoncteurEgal. Si le Produit existe,
-				on supprime le Produit et on retourne la multimap_,
-				sinon on retourne juste la multimap_ sans supprimer l'ÈlÈment.
+on supprime le Produit et on retourne la multimap_,
+sinon on retourne juste la multimap_ sans supprimer l'√©l√©ment.
 */
 class SupprimerProduit
 {
 public:
-	SupprimerProduit(multimap<int, Produit*>&multimap):multimap_(multimap) {  } // constructeur par parametre, utilisation demandÈ du foncteur…tal
-	multimap<int, Produit*> operator()(Produit* p) { // surcharge operateur ()
-		//Produit* temp = pair.second; // crÈation d'un produit* pour faciliter la lecture
+	SupprimerProduit(multimap<int, Produit*>&multimap) :multimap_(multimap) {  } // constructeur par parametre, utilisation demand√© du foncteur√âtal
+	multimap<int, Produit*>& operator()(Produit* p) { // surcharge operateur ()
+													  //Produit* temp = pair.second; // cr√©ation d'un produit* pour faciliter la lecture
 		FoncteurEgal<Produit> egal(p);// construction du foncteurEgal avec le produit de la pair
-		auto it = find_if(multimap_.begin(), multimap_.end(), egal);// find_if avec le prÈdicat prenant en parametre la pair.
-		if (it!=multimap_.end())
+		auto it = find_if(multimap_.begin(), multimap_.end(), egal);// find_if avec le pr√©dicat prenant en parametre la pair.
+		if (it != multimap_.end())
 		{
 			multimap_.erase(it);
 		}
@@ -136,22 +144,22 @@ private:
 };
 
 
-//TODO : CrÈer le Foncteur AjouterUsager
+//TODO : Cr√©er le Foncteur AjouterUsager
 /*
 Attributs :
 - &set;
-MÈthodes :
+M√©thodes :
 - operateur(); Trouve l'Usager dans le set_, s'il existe on le supprime et on retourne le set_, sinon on retourne juste directement le set_.??
 */
 class ajouterUsager
 {
 public:
-	ajouterUsager(set<Usager*>&set):set_(set) { }
-	set<Usager*> operator()(Usager* &usager) { 
-	set_.insert(usager); // ajoute l'usager* dans le set, et le retourne
-	return set_;
+	ajouterUsager(set<Usager*>&set) :set_(set) { }
+	set<Usager*>& operator()(Usager* &usager) {
+		set_.insert(usager); // ajoute l'usager* dans le set, et le retourne
+		return set_;
 	}
-	
+
 
 private:
 	set<Usager*>&set_;
@@ -160,15 +168,17 @@ private:
 class FoncteurSupprimerUsager
 {
 public:
-	FoncteurSupprimerUsager(set<Usager*>&set):set_(set){}
+	FoncteurSupprimerUsager(set<Usager*>&set) :set_(set) {}
 	set<Usager*> operator()(Usager* usager) {
-		auto it = set_.find(usager); // retourne un itÈrateur sur l'ÈlÈment correspondant sinn last.
+		auto it = set_.find(usager); // retourne un it√©rateur sur l'√©l√©ment correspondant sinn last.
 		if (it != set_.end())
 		{
 			set_.erase(it);
 		}
+		return set_;
 	}
 
 private:
 	set<Usager*>&set_;
 };
+#endif

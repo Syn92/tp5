@@ -4,17 +4,24 @@
 #include <string>
 #include "Usager.h"
 #include "GestionnaireProduits.h"
+#include "GestionnaireUsagers.h"
+#include <vector>
+#include "Produit.h"
 
 using namespace std;
+
+class GestionnaireProduits;
 
 class Client : public Usager
 {
   public:
 
-    Client(unsigned int codeClient = 0);
-    Client(const string &nom, const string &prenom, int identifiant, const string &codePostal, unsigned int codeClient = 0);
-	~Client();
-    unsigned int obtenirCodeClient() const;
+    Client(int codeClient = 0);
+    Client(const string &nom, const string &prenom, int identifiant, const string &codePostal,int codeClient = 0);
+	virtual ~Client();
+
+
+    int obtenirCodeClient() const;
 	void modifierCodeClient(unsigned int codeClient);
 	// TODO : Modifier ses méthodes : -------------------
 	GestionnaireProduits* obtenirPanier() const;

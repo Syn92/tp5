@@ -9,6 +9,7 @@
 
 #include "GestionnaireProduits.h"
 #include "ProduitAuxEncheres.h"
+#include <iostream>
 
 
 
@@ -20,6 +21,14 @@ void GestionnaireProduits::reinitialiserClient() {
 }
 
 void GestionnaireProduits::reinitialiserFournisseur() {
+	for (auto it = conteneur_.begin(); it !=conteneur_.end(); it++)
+	{
+		if (ProduitAuxEncheres* ptemp = dynamic_cast<ProduitAuxEncheres*>(it->second)) {
+			ptemp->modifierEncherisseur(nullptr);
+			ptemp->modifierPrix(ptemp->obtenirPrixInitial());
+		}
+		it->second->modifierFournisseur(nullptr);
+	}
 	conteneur_.clear();
 }
 
@@ -62,9 +71,9 @@ vector<pair<int,Produit*>> GestionnaireProduits::obtenirProduitsEntre(double bor
 }
 
 Produit* GestionnaireProduits::obtenirProduitSuivant(Produit* product) const {
-	// functors are causing errors
 
-	//namespace p = std::placeholders; 
-	//find_if(conteneur_.begin, conteneur_.end(), bind(isgreater<pair<int, Produit*>>( p::_1, p::_2)));
-	return nullptr;
+	namespace p = std::placeholders; 
+	auto it = find_if(conteneur_.begin(), conteneur_.end(), bind([](const pair<int, Produit*>& pair, Produit* prod) 
+	{return pair.second->obtenirReference() > prod->obtenirReference(); }, p::_1, product));
+	return it->second;
 }

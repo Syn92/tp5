@@ -38,6 +38,6 @@ void Gestionnaire::reinitialiser()
 void Gestionnaire::encherir(Client *client, ProduitAuxEncheres *produit, double montant) const
 {
 
-	//if(produit->obtenirPrix()< montant)
-		//produit->mettreAJourEnchere(client, montant);
+	if(produit->obtenirPrix()< montant)
+		produit->mettreAJourEnchere(client, montant);
 }

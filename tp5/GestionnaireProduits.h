@@ -7,22 +7,22 @@
 #ifndef GESTIONNAIREPRODUITS_H
 #define GESTIONNAIREPRODUITS_H
 
-#pragma once
 #include <vector>
 #include "GestionnaireGenerique.h"
 #include "Produit.h"
 #include "Foncteur.h"
 #include <functional>
 #include <map>
+#include "ProduitAuxEncheres.h"
+#include "ProduitSolde.h"
 
 
 using namespace std;
 
-class GestionnaireProduits : public GestionnaireGenerique <Produit, multimap<int,Produit*> , AjouterProduit, SupprimerProduit>
+class GestionnaireProduits : public GestionnaireGenerique<multimap<int, Produit*>, Produit , AjouterProduit, SupprimerProduit>
 {
 public:
 
-	
 	void reinitialiserClient();
 	void reinitialiserFournisseur();
 	void afficher() const;
@@ -36,16 +36,4 @@ public:
 
 };
 
-// TODO : Créer la classe GestionnaireProduits
-// TODO : Méthodes :
-/*
-- reinitialiserClient();
-- reinitialiserFournisseur();
-- afficher();
-- obtenirTotalAPayer();
-- obtenirTotalApayerPremium();
-- trouverProduitPlusCher();
-- obtenirProduitsEntre();
-- obtenirProduitSuivant();
-*/
 #endif // !GESTIONNAIREPRODUITS_H

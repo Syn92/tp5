@@ -12,11 +12,15 @@
 #include <vector>
 #include "Foncteur.h"
 using namespace std;
+/*
+1. On aurait pu avoir un map pour le gestionnaire d'usager comme celui-ci : map<int,Usager*> ou l'int est l'identifiant de chaque usager.
+2. C'est parce que le compilateur doit avoir acces à l'implémentation de la classe et de sa définition en même temps qu'avec l'argument de TEMPLATE
+qui lui permet ensuite de crer la classe
+*/
 
 int main()
 {
 	FoncteurGenerateurId genIdUsager, genIdProduit;
-	//GestionnaireUsagers is not defined
 	GestionnaireUsagers poly;
     Client ratus;
 	ratus.modifierReference(genIdUsager());

@@ -2,24 +2,25 @@
 #include "ProduitAuxEncheres.h"
 #include <iostream>
 
-Client::Client(unsigned int codeClient)
+Client::Client(int codeClient)
     : Usager(),
       codeClient_(codeClient), panier_(new GestionnaireProduits)
 {
 }
 
 Client::Client(const string &nom, const string &prenom, int identifiant,
-               const string &codePostal, unsigned int codeClient)
+               const string &codePostal,int codeClient)
     : Usager(nom, prenom, identifiant, codePostal),
       codeClient_(codeClient), panier_(new GestionnaireProduits)
 {
 }
 
 Client::~Client() {
+	panier_->reinitialiserClient();
 	delete panier_;
 }
 
-unsigned int Client::obtenirCodeClient() const
+int Client::obtenirCodeClient() const
 {
     return codeClient_;
 }

@@ -5,6 +5,7 @@
 *******************************************/
 
 #include "GestionnaireUsagers.h"
+#include <iostream>
 
 
 double GestionnaireUsagers::obtenirChiffreAffaires() const {
@@ -14,8 +15,8 @@ double GestionnaireUsagers::obtenirChiffreAffaires() const {
 	//	chiffreAffaire += (*it)->obtenirTotalAPayer();
 	//}
 
-	for (auto it : conteneur_)
-		chiffreAffaire += it->obtenirTotalAPayer();
+	for (auto it = conteneur_.begin(); it != conteneur_.end(); it++)
+		chiffreAffaire += (*it)->obtenirTotalAPayer();
 
 	return chiffreAffaire;
 }
@@ -25,13 +26,11 @@ void GestionnaireUsagers::encherir(Client *client, ProduitAuxEncheres *produit, 
 		produit->mettreAJourEnchere(client, montant);
 	}
 }
+
 void GestionnaireUsagers::reinitialiser() {
 	for (auto it = conteneur_.begin(); it != conteneur_.end(); it++)
 		(*it)->reinitialiser();
 
-
-	
-	
 }
 
 void GestionnaireUsagers::afficherProfils() const {
@@ -42,9 +41,4 @@ void GestionnaireUsagers::afficherProfils() const {
 		(*it)->afficher();
 	}
 	
-	//for (auto it : conteneur_)
-		//it->afficher();
-
-
-
 }
